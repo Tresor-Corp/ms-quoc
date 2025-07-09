@@ -15,6 +15,4 @@ WORKDIR /app
 COPY --from=build /app/private.pem ./
 COPY --from=build /app/public.pem ./
 COPY --from=build /app/build/libs/*.jar jwt-auth.jar
-ENV DB_DRIVER="org.postgresql.Driver" \
-    DB_URL="postgresql://postgres:5432/jwt_auth_service?user=bravos&password=4gi5uKqCtmYRRqRyoJTmu9U"
 ENTRYPOINT ["java", "-Xms1g", "-Xmx1g", "-XX:+UseContainerSupport", "-Duser.timezone=GMT+7", "-jar", "jwt-auth.jar"]
