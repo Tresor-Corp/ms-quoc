@@ -38,14 +38,14 @@ public class DatabaseConfiguration {
         if (atIndex == -1) {
             throw new IllegalArgumentException("Invalid database URL format.");
         }
-        String credentials = dbUrl.substring(0, atIndex);
+        String dbType = dbUrl.substring(0, dbUrl.indexOf("://"));
+        String credentials = dbUrl.substring(dbUrl.indexOf("://") + 3, atIndex);
         String hostPart = dbUrl.substring(atIndex + 1);
-        int skip = credentials.indexOf("://") + 3;
-        int colonIndex = credentials.indexOf(':', skip);
+        int colonIndex = credentials.indexOf(':');
         if (colonIndex == -1) {
             throw new IllegalArgumentException("Invalid credentials format.");
         }
-        String username = credentials.substring(skip, colonIndex);
+        String username = credentials.substring(0, colonIndex);
         String password = credentials.substring(colonIndex + 1);
 
         String regex = "([^:]+)(?::(\\d+))?/(\\w+)";
@@ -54,9 +54,14 @@ public class DatabaseConfiguration {
             String host = matcher.group(1);
             String port = matcher.group(2) != null ? matcher.group(2) : "5432";
             String db = matcher.group(3);
-            return String.format("jdbc:postgresql://%s:%s/%s?user=%s&password=%s", host, port, db, username, password);
+            return String.format("jdbc:%s://%s:%s/%s?user=%s&password=%s",dbType, host, port, db, username, password);
         }
         throw new IllegalArgumentException("Invalid host part format.");
+    }
+
+    public static void main(String[] args) {
+        String dbUrl = "mysql://user:password@localhost/mydb";
+        System.out.println(parseCustomDbUrl(dbUrl));
     }
 
 
