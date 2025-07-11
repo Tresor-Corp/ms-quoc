@@ -33,7 +33,7 @@ public class User {
 
     private LocalDate dateOfBirth;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "timestamp(6) default now()")
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 
