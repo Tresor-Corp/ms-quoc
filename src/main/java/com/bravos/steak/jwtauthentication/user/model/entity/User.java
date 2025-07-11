@@ -34,7 +34,8 @@ public class User {
     private LocalDate dateOfBirth;
 
     @Column(nullable = false, columnDefinition = "timestamp(6) default now()")
-    private LocalDateTime createdAt;
+    @Builder.Default
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     private LocalDateTime updatedAt;
 

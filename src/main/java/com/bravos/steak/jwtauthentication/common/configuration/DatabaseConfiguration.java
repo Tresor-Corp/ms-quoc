@@ -59,10 +59,5 @@ public class DatabaseConfiguration {
         throw new IllegalArgumentException("Invalid host part format.");
     }
 
-    public static void main(String[] args) {
-        String dbUrl = "mysql://user:password@localhost/mydb";
-        System.out.println(parseCustomDbUrl(dbUrl));
-    }
-
 
 }
