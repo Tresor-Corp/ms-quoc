@@ -48,7 +48,8 @@ public class SecurityConfiguration implements WebMvcConfigurer {
         http.authorizeHttpRequests(request -> {
 
             request.requestMatchers(
-                            "/auth/**")
+                            "/auth/**",
+                            "/api/healthz")
                     .permitAll();
 
             request.anyRequest().authenticated();
